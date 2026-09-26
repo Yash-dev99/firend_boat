@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 import os
 from pathlib import Path
+# pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
 
 
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user_profile.apps.UserProfileConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,6 +86,9 @@ DATABASES = {
         'PASSWORD': os.environ.get("DB_PASSWORD"),
         'HOST': os.environ.get("DB_HOST"),
         'PORT': os.environ.get("DB_PORT"),
+        'OPTIONS': {
+            'options': '-c search_path=live'
+        },
     }
 }
 
