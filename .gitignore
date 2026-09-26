@@ -1,0 +1,7 @@
+venv/
+.venv/
+env/
+.env
+friendboat/__pycache__/
+*.pyc
+db.sqlite3
