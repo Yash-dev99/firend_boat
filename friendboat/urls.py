@@ -20,5 +20,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/',include("user_profile.url"))
+    path('u/',include("user_profile.url"))
 ]

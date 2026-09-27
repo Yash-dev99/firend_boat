@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from select import select
 from django.db import models
 
 class CommentDim(models.Model):
@@ -21,6 +22,9 @@ class CommentDim(models.Model):
         managed = False
         db_table = 'comment_dim'
         db_table_comment = 'comment dimension, it will have tree structure.'
+    
+    def __str__(self):
+        return str(self.comment_id)
 
 
 class ConversationDim(models.Model):
@@ -32,6 +36,9 @@ class ConversationDim(models.Model):
     class Meta:
         managed = False
         db_table = 'conversation_dim'
+    
+    def __str__(self):
+        return str(self.conversation_id)
 
 
 class ConversationUser(models.Model):
@@ -44,6 +51,9 @@ class ConversationUser(models.Model):
     class Meta:
         managed = False
         db_table = 'conversation_user'
+    
+    def __str__(self):
+        return str(self.conversation_user_id)
 
 
 
@@ -56,6 +66,9 @@ class LoginLog(models.Model):
     class Meta:
         managed = False
         db_table = 'login_log'
+    
+    def __str__(self):
+        return str(self.login_id)
 
 
 class MessagesDim(models.Model):
@@ -69,6 +82,9 @@ class MessagesDim(models.Model):
     class Meta:
         managed = False
         db_table = 'messages_dim'
+
+    def __str__(self):
+        return str(self.message_id)
 
 
 class PostDim(models.Model):
@@ -87,6 +103,9 @@ class PostDim(models.Model):
         db_table = 'post_dim'
         db_table_comment = 'keep all the post here.'
 
+    def __str__(self):
+        return str(self.post_id)
+
 
 class PostVote(models.Model):
     post_vote_id = models.BigAutoField(primary_key=True)
@@ -99,6 +118,8 @@ class PostVote(models.Model):
         managed = False
         db_table = 'post_vote'
 
+    def __str__(self):
+        return str(self.post_vote_id)
 
 class SubboatDim(models.Model):
     subboat_id = models.BigIntegerField(primary_key=True)
@@ -116,6 +137,9 @@ class SubboatDim(models.Model):
         managed = False
         db_table = 'subboat_dim'
         db_table_comment = 'A group page for people to connect and post'
+    
+    def __str__(self):
+        return "b/"+self.subboat_name
 
 
 class SubboatJoin(models.Model):
@@ -128,6 +152,9 @@ class SubboatJoin(models.Model):
     class Meta:
         managed = False
         db_table = 'subboat_join'
+
+    def __str__(self):
+        return  f"{self.subboat.subboat_name}/{self.user.user_name}"
 
 
 class UserDetail(models.Model):
@@ -146,7 +173,7 @@ class UserDetail(models.Model):
         db_table_comment = 'details of users'
 
     def __str__(self):
-        return self.user_name
+        return "u/"+self.user.user_name
 
 
 class UserDim(models.Model):
